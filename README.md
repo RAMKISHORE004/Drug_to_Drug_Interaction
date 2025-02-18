@@ -4,6 +4,13 @@
 
 This repository contains the implementation of GNN-DDI, a deep learning-based model for predicting drug-drug interaction (DDI) events using graph neural networks (GNNs). In this project we implement Drug-Drug Interaction (DDI) Prediction using various machine learning and deep learning models. It applies data preprocessing, feature engineering, model selection, hyperparameter tuning, and evaluation to classify drug interactions. The model integrates drug features from various sources into an attributed heterogeneous network and applies deep learning techniques for event classification.
 
+## Dataset:
+
+The dataset DDICorpus2013 is sourced from DrugBank.
+
+![image](https://github.com/user-attachments/assets/8003d8c7-9d58-46ff-babe-7838b5583cbf)
+
+
 ## Features:
 
 Data Preprocessing: Cleaning, normalizing, and feature engineering on drug interaction data.
