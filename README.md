@@ -24,7 +24,7 @@ Logistic Regression:	Baseline model with L2 regularization
 
 Naïve Bayes:	Probability-based model (MultinomialNB)
 
-Random Forest	Ensemble learning with decision trees
+Random Forest:	Ensemble learning with decision trees
 
 ### Synthetic Data Generation
 
