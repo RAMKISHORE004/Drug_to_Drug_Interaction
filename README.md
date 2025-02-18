@@ -14,11 +14,17 @@ The dataset DDICorpus2013 is sourced from DrugBank.
 ## Features:
 
 Data Preprocessing: Cleaning, normalizing, and feature engineering on drug interaction data.
+
 Baseline Machine Learning Models: Logistic Regression, Naïve Bayes, Random Forest.
+
 Deep Learning Model: BioBERT, a transformer-based model for DDI classification.
+
 Graph Neural Networks (GNNs): for feature extraction from an attributed heterogeneous network.
+
 Class Imbalance Handling: Generating synthetic negative samples.
+
 Hyperparameter Tuning: Cross-validation and model fine-tuning.
+
 Evaluation Metrics: Accuracy, Precision, Recall, F1-score.
 
 ## Installation & Setup
