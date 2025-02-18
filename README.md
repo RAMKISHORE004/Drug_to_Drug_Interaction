@@ -14,6 +14,27 @@ Class Imbalance Handling: Generating synthetic negative samples.
 Hyperparameter Tuning: Cross-validation and model fine-tuning.
 Evaluation Metrics: Accuracy, Precision, Recall, F1-score.
 
+## Installation & Setup
+### Clone the Repository
+
+git clone https://github.com/RAMKISHORE004/Drug_to_Drug_Interaction.git
+
+cd Drug_to_Drug_Interaction
+
+### Install Dependencies
+
+Create a virtual environment (optional but recommended):
+
+python -m venv venv
+
+source venv/bin/activate   # For macOS/Linux
+
+venv\Scripts\activate      # For Windows
+
+Then install dependencies:
+
+pip install -r requirements.txt
+
 # Model Selection & Implementation
 
 The project implements multiple models for predicting drug-drug interactions (DDIs).
