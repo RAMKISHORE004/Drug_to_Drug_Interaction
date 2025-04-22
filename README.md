@@ -3,50 +3,6 @@
 ## Overview:
 
 This repository contains the implementation of GNN-DDI, a deep learning-based model for predicting drug-drug interaction (DDI) events using graph neural networks (GNNs). In this project we implement Drug-Drug Interaction (DDI) Prediction using various machine learning and deep learning models. It applies data preprocessing, feature engineering, model selection, hyperparameter tuning, and evaluation to classify drug interactions. The model integrates drug features from various sources into an attributed heterogeneous network and applies deep learning techniques for event classification.
-
-## Workflow 
-```mermaid
-graph TD
-    A[Clean Data] --> B[Negative Sampling]
-    B --> C[Graph Assembly]
-    C --> D[GAT Layers]
-    D --> E[Edge Classification]
-    E --> F[Templating]
-    F --> G[Flask Deployment]
-    G --> H[CI/CD Pipeline]
-    H --> I[Monitoring & Analytics]
-    
-    A --> A1[Data Collection]
-    A --> A2[Preprocessing]
-    A --> A3[Missing Values]
-    A --> A4[Feature Engineering]
-    
-    B --> B1[Hard Negative Mining]
-    B --> B2[Contrastive Pairs]
-    
-    C --> C1[Node Features]
-    C --> C2[Edge Features]
-    C --> C3[Subgraph Sampling]
-    
-    D --> D1[Multi-head Attention]
-    D --> D2[Skip Connections]
-    D --> D3[Regularization]
-    
-    E --> E1[Ensemble Methods]
-    E --> E2[Threshold Optimization]
-    
-    F --> F1[Template Versioning]
-    F --> F2[A/B Testing]
-    
-    G --> G1[API Design]
-    G --> G2[Authentication]
-    G --> G3[Monitoring]
-    
-    E2 -.-> D
-    F2 -.-> B
-    G3 -.-> C
-
-
 ## Repository Structure
 ├── train_model.py          # Training script for GAT + edge‑classifier
 ├── app.py                  # Flask app for serving predictions
@@ -174,5 +130,50 @@ Integrate BioBERT features instead of TF–IDF for stronger semantic signals.
 Add user feedback capture in the frontend for iterative retraining.
 
 Deploy to production (Docker, Kubernetes) for scalable inference.
+
+## Workflow 
+```mermaid
+graph TD
+    A[Clean Data] --> B[Negative Sampling]
+    B --> C[Graph Assembly]
+    C --> D[GAT Layers]
+    D --> E[Edge Classification]
+    E --> F[Templating]
+    F --> G[Flask Deployment]
+    G --> H[CI/CD Pipeline]
+    H --> I[Monitoring & Analytics]
+    
+    A --> A1[Data Collection]
+    A --> A2[Preprocessing]
+    A --> A3[Missing Values]
+    A --> A4[Feature Engineering]
+    
+    B --> B1[Hard Negative Mining]
+    B --> B2[Contrastive Pairs]
+    
+    C --> C1[Node Features]
+    C --> C2[Edge Features]
+    C --> C3[Subgraph Sampling]
+    
+    D --> D1[Multi-head Attention]
+    D --> D2[Skip Connections]
+    D --> D3[Regularization]
+    
+    E --> E1[Ensemble Methods]
+    E --> E2[Threshold Optimization]
+    
+    F --> F1[Template Versioning]
+    F --> F2[A/B Testing]
+    
+    G --> G1[API Design]
+    G --> G2[Authentication]
+    G --> G3[Monitoring]
+    
+    E2 -.-> D
+    F2 -.-> B
+    G3 -.-> C
+
+
+
 
 
