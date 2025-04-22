@@ -135,7 +135,6 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 ```mermaid
 graph TD
 
-flowchart LR
   subgraph Data_Prep["Data Preparation"]
     A1[Load DDICorpus2013.csv]
     A2[Drop duplicates & clean text]
