@@ -12,12 +12,16 @@ This repository contains a Graph Attention Network (GAT)-based model for predict
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/yourusername/drug-drug-interaction.git
-   cd drug-drug-interaction
+   git clone https://github.com/RAMKISHORE004/Drug_to_Drug_Interaction.git
+   cd Drug_to_Drug_Interaction
    ```
 
 2. **Install dependencies**
    ```bash
+   #Create a virtual environment (optional but recommended):
+   python -m venv venv
+   source venv/bin/activate   # For macOS/Linux
+   venv\Scripts\activate      # For Windows
    pip install -r requirements.txt
    ```
 
@@ -25,26 +29,19 @@ This repository contains a Graph Attention Network (GAT)-based model for predict
    ```bash
    python app.py
    ```
-   The app will be available at `http://localhost:8000`.
+   The app will be available at `http://localhost:5000`.
 
 ## 🧠 Model Training
 
 To train the model from scratch:
 ```bash
-python train.py --dataset <path_to_dataset>
-```
-
-## 🔍 Predicting Interactions
-
-To predict interaction between two drugs:
-```bash
-python predict.py --input <drug1> <drug2>
+python train.py --dataset DDICorpus2013.xlsx
 ```
 
 ## 🌐 Web Interface
 
 You can also use the built-in web interface to:
-- Input any two drug names.
+- Input any 2 to 4 drug names.
 - Get real-time predictions.
 - Visualize attention weights (optional feature).
 
@@ -54,6 +51,7 @@ The model is trained on a benchmark drug-drug interaction dataset. Preprocessing
 - Clean and structure raw data.
 - Convert drug interactions into graph format.
 - Split the data into training/validation/test sets.
+- ![image](https://github.com/user-attachments/assets/8003d8c7-9d58-46ff-babe-7838b5583cbf)
 
 ## 🤝 Contributing
 
