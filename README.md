@@ -134,44 +134,42 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 ## Workflow 
 ```mermaid
 graph TD
-    A[Clean Data] --> B[Negative Sampling]
-    B --> C[Graph Assembly]
-    C --> D[GAT Layers]
-    D --> E[Edge Classification]
-    E --> F[Templating]
-    F --> G[Flask Deployment]
-    G --> H[CI/CD Pipeline]
-    H --> I[Monitoring & Analytics]
-    
-    A --> A1[Data Collection]
-    A --> A2[Preprocessing]
-    A --> A3[Missing Values]
-    A --> A4[Feature Engineering]
-    
-    B --> B1[Hard Negative Mining]
-    B --> B2[Contrastive Pairs]
-    
-    C --> C1[Node Features]
-    C --> C2[Edge Features]
-    C --> C3[Subgraph Sampling]
-    
-    D --> D1[Multi-head Attention]
-    D --> D2[Skip Connections]
-    D --> D3[Regularization]
-    
-    E --> E1[Ensemble Methods]
-    E --> E2[Threshold Optimization]
-    
-    F --> F1[Template Versioning]
-    F --> F2[A/B Testing]
-    
-    G --> G1[API Design]
-    G --> G2[Authentication]
-    G --> G3[Monitoring]
-    
-    E2 -.-> D
-    F2 -.-> B
-    G3 -.-> C
+    A[Load & Clean Data] --> B[Negative Sampling]
+    B --> C[Feature Construction]
+    C --> D[Graph Assembly]
+    D --> E[GAT Layers]
+    E --> F[Precompute Embeddings]
+    F --> G[Edge Classification]
+    G --> H[Risk Templating]
+    H --> I[Flask Deployment]
+
+    A --> A1[Read DDICorpus2013.csv]
+    A --> A2[Deduplicate & normalize text]
+    A --> A3[Fill missing sentences]
+
+    B --> B1[Identify positive pairs]
+    B --> B2[Sample equal negatives]
+    B --> B3[Zero–pad TF–IDF for negatives]
+
+    C --> C1[Node features: one‐hot matrix]
+    C --> C2[Edge features: TF–IDF vectors]
+
+    D --> D1[Build edge_list with (i,j) & (j,i)]
+    D --> D2[Convert to edge_index tensor]
+
+    E --> E1[GATConv Layer 1: 4 heads, ELU]
+    E --> E2[GATConv Layer 2: 1 head]
+
+    F --> F1[Compute 128‑dim embeddings]
+
+    G --> G1[Concat emb1 ∥ emb2 ∥ TF–IDF]
+    G --> G2[2‑layer MLP → Sigmoid]
+
+    H --> H1[Bucket into High/Med/Low]
+    H --> H2[Randomize template selection]
+
+    I --> I1[Serve index.html]
+    I --> I2[POST /predict API]
 
 
 
