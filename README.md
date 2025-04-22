@@ -131,45 +131,6 @@ Add user feedback capture in the frontend for iterative retraining.
 
 Deploy to production (Docker, Kubernetes) for scalable inference.
 
-## Workflow 
-```mermaid
-graph TD
-    A[Load & Clean Data] --> B[Negative Sampling]
-    B --> C[Feature Construction]
-    C --> D[Graph Assembly]
-    D --> E[GAT Layers]
-    E --> F[Precompute Embeddings]
-    F --> G[Edge Classification]
-    G --> H[Risk Templating]
-    H --> I[Flask Deployment]
-
-    A --> A1[Read DDICorpus2013.csv]
-    A --> A2[Deduplicate & normalize text]
-    A --> A3[Fill missing sentences]
-
-    B --> B1[Identify positive pairs]
-    B --> B2[Sample equal negatives]
-    B --> B3[Zero–pad TF–IDF for negatives]
-
-    C --> C1[Node features: one‐hot matrix]
-    C --> C2[Edge features: TF–IDF vectors]
-
-    D --> D1[Build edge_list]
-    D --> D2[Convert to edge_index tensor]
-
-    E --> E1[GATConv Layer 1: 4 heads, ELU]
-    E --> E2[GATConv Layer 2: 1 head]
-
-    F --> F1[Compute 128‑dim embeddings]
-
-    G --> G1[Concat emb1 ∥ emb2 ∥ TF–IDF]
-    G --> G2[2‑layer MLP → Sigmoid]
-
-    H --> H1[Bucket into High/Med/Low]
-    H --> H2[Randomize template selection]
-
-    I --> I1[Serve index.html]
-    I --> I2[POST /predict API]
 
 
 
