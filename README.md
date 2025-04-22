@@ -5,14 +5,14 @@
 This repository contains the implementation of GNN-DDI, a deep learning-based model for predicting drug-drug interaction (DDI) events using graph neural networks (GNNs). In this project we implement Drug-Drug Interaction (DDI) Prediction using various machine learning and deep learning models. It applies data preprocessing, feature engineering, model selection, hyperparameter tuning, and evaluation to classify drug interactions. The model integrates drug features from various sources into an attributed heterogeneous network and applies deep learning techniques for event classification.
 
 ## Repository Structure
-├── train_model.py         # Training script for GAT + edge‐classifier
-├── app.py                 # Flask app for serving predictions
-├── index.html             # Frontend interface
-├── DDICorpus2013.csv      # Dataset of drug pairs and sentences
-├── gat_best.pth           # Saved GAT model weights (after training)
-├── edge_best.pth          # Saved edge‐classifier weights
-├── requirements.txt       # Python dependencies
-└── README.md              # This file
+├── train_model.py          # Training script for GAT + edge‑classifier
+├── app.py                  # Flask app for serving predictions
+├── index.html              # Frontend interface
+├── DDICorpus2013.csv       # Dataset of drug pairs and sentences
+├── gat_best.pth            # Saved GAT model weights
+├── edge_best.pth           # Saved edge‑classifier weights
+├── requirements.txt        # Python dependencies
+└── README.md               # This file
 
 ## Dataset:
 
