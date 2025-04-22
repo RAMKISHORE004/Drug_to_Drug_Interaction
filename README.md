@@ -133,8 +133,7 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 
 ## Workflow 
 ```mermaid
-graph TD
-
+flowchart LR
   subgraph Data_Prep["Data Preparation"]
     A1[Load DDICorpus2013.csv]
     A2[Drop duplicates & clean text]
@@ -160,8 +159,8 @@ graph TD
   end
 
   subgraph Model["Model Training"]
-    E1[GAT Layer 1: 4 heads → 512 dim + ELU]
-    E2[GAT Layer 2: 1 head → 128 dim]
+    E1[GAT Layer 1: 4 heads → 512 dim + ELU]
+    E2[GAT Layer 2: 1 head → 128 dim]
     E3[Edge MLP: (256+100)→64→1 + Sigmoid]
     E4[Train with Adam & BCELoss]
     E5[Save best weights]
@@ -170,10 +169,10 @@ graph TD
   subgraph Inference["Inference & Templating"]
     F1[Load saved weights & TF–IDF]
     F2[Precompute node embeddings]
-    F3[For each drug pair: concat embeddings+TFIDF]
-    F4[Predict p ∈ [0,1]]
+    F3[For each drug pair: concat embeddings + TF–IDF]
+    F4[Predict probability p ∈ [0,1]]
     F5[Bucket p → High/Med/Low]
-    F6[Fill one of 10 templates]
+    F6[Select and fill template]
   end
 
   subgraph Deploy["Deployment"]
@@ -188,6 +187,7 @@ graph TD
   Graph --> Model
   Model --> Inference
   Inference --> Deploy
+
 
 
 
