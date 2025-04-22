@@ -38,7 +38,7 @@ This repository contains a Graph Attention Network (GAT)-based model for predict
 
 To train the model from scratch:
 ```bash
-python train.py --dataset DDICorpus2013.xlsx
+python train.py
 ```
 
 ## 🧠 Model Selection & Implementation
