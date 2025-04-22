@@ -134,42 +134,62 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 ## Workflow 
 ```mermaid
 graph TD
-    A[Load & Clean Data] --> B[Negative Sampling]
-    B --> C[Feature Construction]
-    C --> D[Graph Assembly]
-    D --> E[GAT Layers]
-    E --> F[Precompute Embeddings]
-    F --> G[Edge Classification]
-    G --> H[Risk Templating]
-    H --> I[Flask Deployment]
 
-    A --> A1[Read DDICorpus2013.csv]
-    A --> A2[Deduplicate & normalize text]
-    A --> A3[Fill missing sentences]
+flowchart LR
+  subgraph Data_Prep["Data Preparation"]
+    A1[Load DDICorpus2013.csv]
+    A2[Drop duplicates & clean text]
+    A3[Normalize drug names]
+    A4[TF–IDF fit on sentences]
+  end
 
-    B --> B1[Identify positive pairs]
-    B --> B2[Sample equal negatives]
-    B --> B3[Zero–pad TF–IDF for negatives]
+  subgraph Sampling["Negative Sampling"]
+    B1[Enumerate all drug pairs]
+    B2[Select equal number of non‑interactions]
+    B3[Assign zero TF–IDF vectors]
+  end
 
-    C --> C1[Node features: one‐hot matrix]
-    C --> C2[Edge features: TF–IDF vectors]
+  subgraph Features["Feature Construction"]
+    C1[Create one‑hot node matrix]
+    C2[Use TF–IDF for edge features]
+  end
 
-    D --> D1[Build edge_list]
-    D --> D2[Convert to edge_index tensor]
+  subgraph Graph["Graph Assembly"]
+    D1[Build bidirectional edge_list]
+    D2[Convert to edge_index tensor]
+    D3[Package into PyG Data]
+  end
 
-    E --> E1[GATConv Layer 1: 4 heads, ELU]
-    E --> E2[GATConv Layer 2: 1 head]
+  subgraph Model["Model Training"]
+    E1[GAT Layer 1: 4 heads → 512 dim + ELU]
+    E2[GAT Layer 2: 1 head → 128 dim]
+    E3[Edge MLP: (256+100)→64→1 + Sigmoid]
+    E4[Train with Adam & BCELoss]
+    E5[Save best weights]
+  end
 
-    F --> F1[Compute 128‑dim embeddings]
+  subgraph Inference["Inference & Templating"]
+    F1[Load saved weights & TF–IDF]
+    F2[Precompute node embeddings]
+    F3[For each drug pair: concat embeddings+TFIDF]
+    F4[Predict p ∈ [0,1]]
+    F5[Bucket p → High/Med/Low]
+    F6[Fill one of 10 templates]
+  end
 
-    G --> G1[Concat emb1 ∥ emb2 ∥ TF–IDF]
-    G --> G2[2‑layer MLP → Sigmoid]
+  subgraph Deploy["Deployment"]
+    G1[Flask: serve index.html]
+    G2[Flask API: POST /predict]
+    G3[HTML/JS frontend]
+  end
 
-    H --> H1[Bucket into High/Med/Low]
-    H --> H2[Randomize template selection]
+  Data_Prep --> Sampling
+  Sampling --> Features
+  Features --> Graph
+  Graph --> Model
+  Model --> Inference
+  Inference --> Deploy
 
-    I --> I1[Serve index.html]
-    I --> I2[POST /predict API]
 
 
 
