@@ -1,3 +1,92 @@
+```markdown
+# Drug-Drug Interaction Prediction
+
+This repository contains a Graph Attention Network (GAT)-based model for predicting interactions between drugs. The goal is to identify potential adverse interactions between drug pairs using graph-based machine learning techniques.
+
+## 🚀 Features
+- **Graph Neural Network**: Uses a Graph Attention Network to model drug relationships.
+- **High Accuracy**: Trained on real-world drug interaction datasets.
+- **Web Interface**: User-friendly web app to interact with the model and make predictions.
+
+## 📦 Installation
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/yourusername/drug-drug-interaction.git
+   cd drug-drug-interaction
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the web application**
+   ```bash
+   python app.py
+   ```
+   The app will be available at `http://localhost:8000`.
+
+## 🧠 Model Training
+
+To train the model from scratch:
+```bash
+python train.py --dataset <path_to_dataset>
+```
+
+## 🔍 Predicting Interactions
+
+To predict interaction between two drugs:
+```bash
+python predict.py --input <drug1> <drug2>
+```
+
+## 🌐 Web Interface
+
+You can also use the built-in web interface to:
+- Input any two drug names.
+- Get real-time predictions.
+- Visualize attention weights (optional feature).
+
+## 📊 Dataset
+
+The model is trained on a benchmark drug-drug interaction dataset. Preprocessing scripts are included to:
+- Clean and structure raw data.
+- Convert drug interactions into graph format.
+- Split the data into training/validation/test sets.
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have suggestions, feel free to:
+- Fork the repo
+- Create a feature branch
+- Open a Pull Request
+
+Please make sure your code adheres to the project's style and passes tests.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- GAT architecture inspired by [Velickovic et al., 2018](https://arxiv.org/abs/1710.10903)
+- Dataset from DrugBank / TWOSIDES / other sources
+- Special thanks to contributors and reviewers!
+
+---
+
+🧪 *Note: This model is for research purposes only and should not be used in clinical settings without professional validation.*
+```
+
+
+
+
+
+
+
+
+
 # Drug_to_Drug_Interaction
 
 ## Overview:
