@@ -133,60 +133,55 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 
 ## Workflow 
 ```mermaid
-flowchart LR
-  subgraph Data_Prep["Data Preparation"]
-    A1[Load DDICorpus2013.csv]
-    A2[Drop duplicates and clean text]
-    A3[Normalize drug names]
-    A4[Fit TF-IDF on sentences]
+flowchart TB
+  subgraph Data_Preparation
+    A1[Read DDICorpus2013.csv]
+    A2[Deduplicate & Clean Text]
+    A3[Normalize Drug Names]
+    A4[Fit TF–IDF on Sentences]
   end
 
-  subgraph Sampling["Negative Sampling"]
-    B1[Enumerate all drug pairs]
-    B2[Sample equal number of negatives]
-    B3[Assign zero TF-IDF vectors]
+  subgraph Negative_Sampling
+    B1[List All Drug Pairs]
+    B2[Sample Equal Negatives]
+    B3[Zero‑Pad TF–IDF for Negatives]
   end
 
-  subgraph Features["Feature Construction"]
-    C1[Create one-hot node matrix]
-    C2[Extract TF-IDF edge features]
+  subgraph Feature_Construction
+    C1[Build One‑Hot Node Matrix]
+    C2[Extract TF–IDF Edge Features]
   end
 
-  subgraph Graph["Graph Assembly"]
-    D1[Build bidirectional edge list]
-    D2[Convert to edge_index tensor]
-    D3[Wrap into PyG Data object]
+  subgraph Graph_Assembly
+    D1[Make Bidirectional Edge List]
+    D2[Convert to 2×E edge_index]
+    D3[Wrap into PyG Data Object]
   end
 
-  subgraph Model["Model Training"]
-    E1[GAT Layer 1: 4 heads, ELU]
-    E2[GAT Layer 2: 1 head]
-    E3[Edge MLP: 356 -> 64 -> 1 + Sigmoid]
-    E4[Train with Adam and BCELoss]
-    E5[Save best model weights]
+  subgraph Model_Training
+    E1[Run GATConv Layer1 4 heads + ELU]
+    E2[Run GATConv Layer2 1 head]
+    E3[Train Edge MLP 356→64→1 + Sigmoid]
+    E4[Optimize with Adam & BCELoss]
+    E5[Save gat_best.pth & edge_best.pth]
   end
 
-  subgraph Inference["Inference & Templating"]
-    F1[Load saved weights and TF-IDF]
-    F2[Compute node embeddings once]
-    F3[For each drug pair: concat embeddings and TF-IDF]
-    F4[Predict probability p]
-    F5[Bucket p into high/medium/low]
-    F6[Select and fill sentence template]
+  subgraph Inference_Deployment
+    F1[Load Models & TF–IDF Vectorizer]
+    F2[Precompute Node Embeddings]
+    F3[Concatenate Embeddings + TF–IDF]
+    F4[Predict Interaction Probability]
+    F5[Bucket into High/Medium/Low]
+    F6[Fill Sentence Templates]
+    F7[Serve via Flask & HTML/JS Frontend]
   end
 
-  subgraph Deploy["Deployment"]
-    G1[Serve index.html via Flask]
-    G2[Expose POST /predict API]
-    G3[HTML/JS frontend for user input]
-  end
+  Data_Preparation --> Negative_Sampling
+  Negative_Sampling --> Feature_Construction
+  Feature_Construction --> Graph_Assembly
+  Graph_Assembly --> Model_Training
+  Model_Training --> Inference_Deployment
 
-  Data_Prep --> Sampling
-  Sampling --> Features
-  Features --> Graph
-  Graph --> Model
-  Model --> Inference
-  Inference --> Deploy
 
 
 
