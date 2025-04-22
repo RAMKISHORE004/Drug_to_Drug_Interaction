@@ -4,6 +4,57 @@
 
 This repository contains the implementation of GNN-DDI, a deep learning-based model for predicting drug-drug interaction (DDI) events using graph neural networks (GNNs). In this project we implement Drug-Drug Interaction (DDI) Prediction using various machine learning and deep learning models. It applies data preprocessing, feature engineering, model selection, hyperparameter tuning, and evaluation to classify drug interactions. The model integrates drug features from various sources into an attributed heterogeneous network and applies deep learning techniques for event classification.
 
+## Workflow 
+graph TD
+    A[1. Clean Data] --> B[2. Negative Sampling]
+    B --> C[3. Graph Assembly]
+    C --> D[4. GAT Layers]
+    D --> E[5. Edge Classification]
+    E --> F[6. Templating]
+    F --> G[7. Flask Deployment]
+    
+    %% Clean Data subcomponents
+    A --> A1[Data Collection]
+    A --> A2[Preprocessing]
+    A --> A3[Missing Value Imputation]
+    A --> A4[Feature Engineering]
+    
+    %% Negative Sampling subcomponents
+    B --> B1[Hard Negative Mining]
+    B --> B2[Contrastive Pair Generation]
+    
+    %% Graph Assembly subcomponents
+    C --> C1[Node Feature Extraction]
+    C --> C2[Edge Feature Computation]
+    C --> C3[Subgraph Sampling]
+    
+    %% GAT Layers subcomponents
+    D --> D1[Multi-head Attention]
+    D --> D2[Skip Connections]
+    D --> D3[Dropout Regularization]
+    
+    %% Edge Classification subcomponents
+    E --> E1[Ensemble Methods]
+    E --> E2[Threshold Optimization]
+    
+    %% Templating subcomponents
+    F --> F1[Template Versioning]
+    F --> F2[A/B Testing Framework]
+    
+    %% Flask Deployment subcomponents
+    G --> G1[API Endpoint Design]
+    G --> G2[Auth & Rate Limiting]
+    G --> G3[Logging & Monitoring]
+    
+    %% Feedback loops
+    E2 -.-> D
+    F2 -.-> B
+    G -.-> C
+    
+    %% Add CI/CD and Monitoring
+    G --> H[CI/CD Pipeline]
+    H --> I[Monitoring & Analytics]
+
 ## Repository Structure
 ├── train_model.py          # Training script for GAT + edge‑classifier
 ├── app.py                  # Flask app for serving predictions
