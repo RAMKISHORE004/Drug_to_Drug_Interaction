@@ -1,4 +1,4 @@
-```markdown
+
 # Drug-Drug Interaction Prediction
 
 This repository contains a Graph Attention Network (GAT)-based model for predicting interactions between drugs. The goal is to identify potential adverse interactions between drug pairs using graph-based machine learning techniques.
