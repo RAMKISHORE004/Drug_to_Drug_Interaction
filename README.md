@@ -133,54 +133,12 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 
 ## Workflow 
 ```mermaid
-flowchart TB
-  subgraph Data_Preparation
-    A1[Read DDICorpus2013.csv]
-    A2[Deduplicate & Clean Text]
-    A3[Normalize Drug Names]
-    A4[Fit TF–IDF on Sentences]
-  end
-
-  subgraph Negative_Sampling
-    B1[List All Drug Pairs]
-    B2[Sample Equal Negatives]
-    B3[Zero‑Pad TF–IDF for Negatives]
-  end
-
-  subgraph Feature_Construction
-    C1[Build One‑Hot Node Matrix]
-    C2[Extract TF–IDF Edge Features]
-  end
-
-  subgraph Graph_Assembly
-    D1[Make Bidirectional Edge List]
-    D2[Convert to 2×E edge_index]
-    D3[Wrap into PyG Data Object]
-  end
-
-  subgraph Model_Training
-    E1[Run GATConv Layer1 4 heads + ELU]
-    E2[Run GATConv Layer2 1 head]
-    E3[Train Edge MLP 356→64→1 + Sigmoid]
-    E4[Optimize with Adam & BCELoss]
-    E5[Save gat_best.pth & edge_best.pth]
-  end
-
-  subgraph Inference_Deployment
-    F1[Load Models & TF–IDF Vectorizer]
-    F2[Precompute Node Embeddings]
-    F3[Concatenate Embeddings + TF–IDF]
-    F4[Predict Interaction Probability]
-    F5[Bucket into High/Medium/Low]
-    F6[Fill Sentence Templates]
-    F7[Serve via Flask & HTML/JS Frontend]
-  end
-
-  Data_Preparation --> Negative_Sampling
-  Negative_Sampling --> Feature_Construction
-  Feature_Construction --> Graph_Assembly
-  Graph_Assembly --> Model_Training
-  Model_Training --> Inference_Deployment
+flowchart LR
+    A[Load & Clean Data] --> B[Build Graph & TF–IDF]
+    B --> C[Compute GAT Embeddings]
+    C --> D[Edge MLP Classification]
+    D --> E[Template Generation]
+    E --> F[Flask API & Frontend]
 
 
 
