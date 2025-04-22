@@ -154,7 +154,7 @@ graph TD
     C --> C1[Node features: one‐hot matrix]
     C --> C2[Edge features: TF–IDF vectors]
 
-    D --> D1[Build edge_list with (i,j) & (j,i)]
+    D --> D1[Build edge_list]
     D --> D2[Convert to edge_index tensor]
 
     E --> E1[GATConv Layer 1: 4 heads, ELU]
