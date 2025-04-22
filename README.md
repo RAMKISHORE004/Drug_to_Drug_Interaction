@@ -136,49 +136,49 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 flowchart LR
   subgraph Data_Prep["Data Preparation"]
     A1[Load DDICorpus2013.csv]
-    A2[Drop duplicates & clean text]
+    A2[Drop duplicates and clean text]
     A3[Normalize drug names]
-    A4[TF–IDF fit on sentences]
+    A4[Fit TF-IDF on sentences]
   end
 
   subgraph Sampling["Negative Sampling"]
     B1[Enumerate all drug pairs]
-    B2[Select equal number of non‑interactions]
-    B3[Assign zero TF–IDF vectors]
+    B2[Sample equal number of negatives]
+    B3[Assign zero TF-IDF vectors]
   end
 
   subgraph Features["Feature Construction"]
-    C1[Create one‑hot node matrix]
-    C2[Use TF–IDF for edge features]
+    C1[Create one-hot node matrix]
+    C2[Extract TF-IDF edge features]
   end
 
   subgraph Graph["Graph Assembly"]
-    D1[Build bidirectional edge_list]
+    D1[Build bidirectional edge list]
     D2[Convert to edge_index tensor]
-    D3[Package into PyG Data]
+    D3[Wrap into PyG Data object]
   end
 
   subgraph Model["Model Training"]
-    E1[GAT Layer 1: 4 heads → 512 dim + ELU]
-    E2[GAT Layer 2: 1 head → 128 dim]
-    E3[Edge MLP: (256+100)→64→1 + Sigmoid]
-    E4[Train with Adam & BCELoss]
-    E5[Save best weights]
+    E1[GAT Layer 1: 4 heads, ELU]
+    E2[GAT Layer 2: 1 head]
+    E3[Edge MLP: 356 -> 64 -> 1 + Sigmoid]
+    E4[Train with Adam and BCELoss]
+    E5[Save best model weights]
   end
 
   subgraph Inference["Inference & Templating"]
-    F1[Load saved weights & TF–IDF]
-    F2[Precompute node embeddings]
-    F3[For each drug pair: concat embeddings + TF–IDF]
-    F4[Predict probability p ∈ [0,1]]
-    F5[Bucket p → High/Med/Low]
-    F6[Select and fill template]
+    F1[Load saved weights and TF-IDF]
+    F2[Compute node embeddings once]
+    F3[For each drug pair: concat embeddings and TF-IDF]
+    F4[Predict probability p in [0,1]]
+    F5[Bucket p into high/medium/low]
+    F6[Select and fill sentence template]
   end
 
   subgraph Deploy["Deployment"]
-    G1[Flask: serve index.html]
-    G2[Flask API: POST /predict]
-    G3[HTML/JS frontend]
+    G1[Serve index.html via Flask]
+    G2[Expose POST /predict API]
+    G3[HTML/JS frontend for user input]
   end
 
   Data_Prep --> Sampling
@@ -187,6 +187,7 @@ flowchart LR
   Graph --> Model
   Model --> Inference
   Inference --> Deploy
+
 
 
 
