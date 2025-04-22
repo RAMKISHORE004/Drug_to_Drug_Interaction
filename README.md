@@ -4,6 +4,16 @@
 
 This repository contains the implementation of GNN-DDI, a deep learning-based model for predicting drug-drug interaction (DDI) events using graph neural networks (GNNs). In this project we implement Drug-Drug Interaction (DDI) Prediction using various machine learning and deep learning models. It applies data preprocessing, feature engineering, model selection, hyperparameter tuning, and evaluation to classify drug interactions. The model integrates drug features from various sources into an attributed heterogeneous network and applies deep learning techniques for event classification.
 
+## Repository Structure
+├── train_model.py         # Training script for GAT + edge‐classifier
+├── app.py                 # Flask app for serving predictions
+├── index.html             # Frontend interface
+├── DDICorpus2013.csv      # Dataset of drug pairs and sentences
+├── gat_best.pth           # Saved GAT model weights (after training)
+├── edge_best.pth          # Saved edge‐classifier weights
+├── requirements.txt       # Python dependencies
+└── README.md              # This file
+
 ## Dataset:
 
 The dataset DDICorpus2013 is sourced from DrugBank.
@@ -16,8 +26,6 @@ The dataset DDICorpus2013 is sourced from DrugBank.
 Data Preprocessing: Cleaning, normalizing, and feature engineering on drug interaction data.
 
 Baseline Machine Learning Models: Logistic Regression, Naïve Bayes, Random Forest.
-
-Deep Learning Model: BioBERT, a transformer-based model for DDI classification.
 
 Graph Neural Networks (GNNs): for feature extraction from an attributed heterogeneous network.
 
@@ -66,9 +74,6 @@ Randomly generate non-interacting drug pairs to balance classes.
 
 Helps reduce model bias towards positive interactions.
 
-### Hyperparameter Tuning & Cross-Validation
-
-Stratified K-Fold Cross-Validation (K=5)
 
 ### Fine-tuned parameters:
 
@@ -78,26 +83,53 @@ Naïve Bayes (alpha=0.5)
 
 Random Forest (n_estimators=100, max_depth=10)
 
-Deep Learning Model: BioBERT
 
-Model: dmis-lab/biobert-base-cased-v1.1
+### Training the model:
 
-Tokenizer: BERT Tokenizer
+py train_model.py
 
-### Training Method:
+The script will:
 
-Dataset tokenized with BERT Tokenizer
+Load and preprocess the data
 
-Fine-tuned on labeled drug interaction sentences
+Build negative samples to balance the dataset
 
-Optimized using Adam optimizer (learning_rate=2e-5)
+Construct the graph and TF–IDF features
 
-## Model Evaluation
+Train a two‐layer GAT and an edge MLP classifier for 20 epochs
 
-Metrics used are 
-Accuracy,
-Precision,
-Recall,
-F1-score,
-AUC-ROC Curve
+Save gat_best.pth and edge_best.pth when validation accuracy improves
+
+Plot and display loss & accuracy curves
+
+## Serving Predictions
+
+Make sure gat_best.pth, edge_best.pth, index.html, and DDICorpus2013.csv are present.
+
+Start the Flask server:
+py app.py
+
+## Usage
+Frontend: Enter 2–4 comma‐separated drug names and click "Check Interactions". The app will display risk‐level summaries.
+
+API: Send a POST request to /predict with JSON payload
+
+## Code Highlights
+
+Graph Construction: Drugs are nodes, TF–IDF sentences are edge features, and negative sampling balances positives and negatives.
+
+GAT: Two GATConv layers learn 128‐dim embeddings with multi‐head attention.
+
+Edge Classifier: A two‐layer MLP combines the embeddings and TF–IDF vector to predict interaction probability.
+
+Templates: Probability buckets (high/medium/low) map to human‐readable sentence templates.
+
+## Future Work
+
+Integrate BioBERT features instead of TF–IDF for stronger semantic signals.
+
+Add user feedback capture in the frontend for iterative retraining.
+
+Deploy to production (Docker, Kubernetes) for scalable inference.
+
 
