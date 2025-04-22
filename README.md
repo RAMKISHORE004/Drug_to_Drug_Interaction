@@ -7,54 +7,44 @@ This repository contains the implementation of GNN-DDI, a deep learning-based mo
 ## Workflow 
 ```mermaid
 graph TD
-    A[1. Clean Data] --> B[2. Negative Sampling]
-    B --> C[3. Graph Assembly]
-    C --> D[4. GAT Layers]
-    D --> E[5. Edge Classification]
-    E --> F[6. Templating]
-    F --> G[7. Flask Deployment]
+    A[Clean Data] --> B[Negative Sampling]
+    B --> C[Graph Assembly]
+    C --> D[GAT Layers]
+    D --> E[Edge Classification]
+    E --> F[Templating]
+    F --> G[Flask Deployment]
+    G --> H[CI/CD Pipeline]
+    H --> I[Monitoring & Analytics]
     
-    %% Clean Data subcomponents
     A --> A1[Data Collection]
     A --> A2[Preprocessing]
-    A --> A3[Missing Value Imputation]
+    A --> A3[Missing Values]
     A --> A4[Feature Engineering]
     
-    %% Negative Sampling subcomponents
     B --> B1[Hard Negative Mining]
-    B --> B2[Contrastive Pair Generation]
+    B --> B2[Contrastive Pairs]
     
-    %% Graph Assembly subcomponents
-    C --> C1[Node Feature Extraction]
-    C --> C2[Edge Feature Computation]
+    C --> C1[Node Features]
+    C --> C2[Edge Features]
     C --> C3[Subgraph Sampling]
     
-    %% GAT Layers subcomponents
     D --> D1[Multi-head Attention]
     D --> D2[Skip Connections]
-    D --> D3[Dropout Regularization]
+    D --> D3[Regularization]
     
-    %% Edge Classification subcomponents
     E --> E1[Ensemble Methods]
     E --> E2[Threshold Optimization]
     
-    %% Templating subcomponents
     F --> F1[Template Versioning]
-    F --> F2[A/B Testing Framework]
+    F --> F2[A/B Testing]
     
-    %% Flask Deployment subcomponents
-    G --> G1[API Endpoint Design]
-    G --> G2[Auth & Rate Limiting]
-    G --> G3[Logging & Monitoring]
+    G --> G1[API Design]
+    G --> G2[Authentication]
+    G --> G3[Monitoring]
     
-    %% Feedback loops
     E2 -.-> D
     F2 -.-> B
-    G -.-> C
-    
-    %% Add CI/CD and Monitoring
-    G --> H[CI/CD Pipeline]
-    H --> I[Monitoring & Analytics]
+    G3 -.-> C
 
 
 ## Repository Structure
