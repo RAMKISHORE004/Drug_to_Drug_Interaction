@@ -170,7 +170,7 @@ flowchart LR
     F1[Load saved weights and TF-IDF]
     F2[Compute node embeddings once]
     F3[For each drug pair: concat embeddings and TF-IDF]
-    F4[Predict probability p in [0,1]]
+    F4[Predict probability p]
     F5[Bucket p into high/medium/low]
     F6[Select and fill sentence template]
   end
