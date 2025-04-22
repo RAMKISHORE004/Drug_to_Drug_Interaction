@@ -134,11 +134,60 @@ Deploy to production (Docker, Kubernetes) for scalable inference.
 ## Workflow 
 ```mermaid
 flowchart LR
-    A[Load & Clean Data] --> B[Build Graph & TF–IDF]
-    B --> C[Compute GAT Embeddings]
-    C --> D[Edge MLP Classification]
-    D --> E[Template Generation]
-    E --> F[Flask API & Frontend]
+  subgraph Data_Prep["Data Preparation"]
+    A1[Load DDICorpus2013.csv]
+    A2[Drop duplicates & clean text]
+    A3[Normalize drug names]
+    A4[TF–IDF fit on sentences]
+  end
+
+  subgraph Sampling["Negative Sampling"]
+    B1[Enumerate all drug pairs]
+    B2[Select equal number of non‑interactions]
+    B3[Assign zero TF–IDF vectors]
+  end
+
+  subgraph Features["Feature Construction"]
+    C1[Create one‑hot node matrix]
+    C2[Use TF–IDF for edge features]
+  end
+
+  subgraph Graph["Graph Assembly"]
+    D1[Build bidirectional edge_list]
+    D2[Convert to edge_index tensor]
+    D3[Package into PyG Data]
+  end
+
+  subgraph Model["Model Training"]
+    E1[GAT Layer 1: 4 heads → 512 dim + ELU]
+    E2[GAT Layer 2: 1 head → 128 dim]
+    E3[Edge MLP: 256+100→64→1 + Sigmoid]
+    E4[Train with Adam & BCELoss]
+    E5[Save best weights]
+  end
+
+  subgraph Inference["Inference & Templating"]
+    F1[Load saved weights & TF–IDF]
+    F2[Precompute node embeddings]
+    F3[For each drug pair: concat embeddings + TF–IDF]
+    F4[Predict probability p]
+    F5[Bucket p → High/Med/Low]
+    F6[Select and fill template]
+  end
+
+  subgraph Deploy["Deployment"]
+    G1[Flask: serve index.html]
+    G2[Flask API: POST /predict]
+    G3[HTML/JS frontend]
+  end
+
+  Data_Prep --> Sampling
+  Sampling --> Features
+  Features --> Graph
+  Graph --> Model
+  Model --> Inference
+  Inference --> Deploy
+
 
 
 
